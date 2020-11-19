@@ -339,7 +339,7 @@ public class ItemsListener implements Listener {
 		new AnvilGUI.Builder()
 				.plugin(UhcCore.getPlugin())
 				.title(Lang.TEAM_INVENTORY_INVITE_PLAYER)
-				.text("Enter name ...")
+				.text("Jméno hráče..")
 				.item(new ItemStack(Material.NAME_TAG))
 				.onComplete(((p, s) -> {
 					p.performCommand("team invite " + s);

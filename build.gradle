@@ -38,12 +38,20 @@ allprojects {
             // ProtocolLib
             url "http://repo.dmulloy2.net/nexus/repository/public/"
         }
+        maven {
+            name = 'codemc-repo'
+            url = 'https://repo.codemc.org/repository/maven-public/'
+        }
     }
 
     processResources {
         from(sourceSets.main.resources.srcDirs) {
             filter ReplaceTokens, tokens: [version: version]
         }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "utf-8"
     }
 }
 
@@ -60,6 +68,8 @@ dependencies {
     shadow 'com.comphenix.protocol:ProtocolLib:4.4.0'
     compile project('Support-WorldEdit-6')
     compile project('Support-WorldEdit-7')
+    compileOnly group: 'com.alessiodp.parties', name: 'parties-api', version: '2.6.16'
+    implementation files("libraries/PLJRApi.jar")
 }
 
 shadowJar {

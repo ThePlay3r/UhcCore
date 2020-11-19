@@ -430,6 +430,11 @@ public class GameManager{
 		listeners.add(new WorldListener());
 		listeners.add(new PlayerMovementListener(playerManager));
 		listeners.add(new EntityDamageListener(this));
+		if (Bukkit.getServer().getPluginManager().getPlugin("Parties") != null) {
+			if (Bukkit.getServer().getPluginManager().getPlugin("Parties").isEnabled()) {
+				listeners.add(new BukkitPartiesPlayerPostJoinListener(playerManager));
+			}
+		}
 		for(Listener listener : listeners){
 			Bukkit.getServer().getPluginManager().registerEvents(listener, UhcCore.getPlugin());
 		}

@@ -42,7 +42,7 @@ public class PlayerDeathListener implements Listener{
 
 		if (uhcPlayer.getState() != PlayerState.PLAYING){
 			Bukkit.getLogger().warning("[UhcCore] " + player.getName() + " died while already in 'DEAD' mode!");
-			player.kickPlayer("Don't cheat!");
+			player.kickPlayer("§cNepodváděj!");
 			return;
 		}
 
@@ -56,7 +56,7 @@ public class PlayerDeathListener implements Listener{
 			uhcKiller.kills++;
 
 			// Call Bukkit event
-			UhcPlayerKillEvent killEvent = new UhcPlayerKillEvent(uhcPlayer, uhcKiller);
+			UhcPlayerKillEvent killEvent = new UhcPlayerKillEvent(uhcKiller, uhcPlayer);
 			Bukkit.getServer().getPluginManager().callEvent(killEvent);
 
 			if(cfg.getEnableKillEvent()){

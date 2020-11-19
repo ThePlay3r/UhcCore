@@ -9,13 +9,11 @@ import com.gmail.val59000mc.languages.Lang;
 import com.gmail.val59000mc.players.*;
 import com.gmail.val59000mc.scenarios.Scenario;
 import com.gmail.val59000mc.scenarios.scenariolisteners.SilentNightListener;
-import com.gmail.val59000mc.scoreboard.placeholders.BlocksToTeamLeader;
-import com.gmail.val59000mc.scoreboard.placeholders.ScenariosPlaceholder;
-import com.gmail.val59000mc.scoreboard.placeholders.TeamMembersPlaceholder;
-import com.gmail.val59000mc.scoreboard.placeholders.TimersPlaceholder;
+import com.gmail.val59000mc.scoreboard.placeholders.*;
 import com.gmail.val59000mc.threads.UpdateScoreboardThread;
 import com.gmail.val59000mc.utils.TimeUtils;
 import com.gmail.val59000mc.utils.VersionUtils;
+import me.pljr.pljrapi.utils.PapiUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -39,6 +37,7 @@ public class ScoreboardManager {
         placeholders.add(new TeamMembersPlaceholder());
         placeholders.add(new ScenariosPlaceholder());
         placeholders.add(new TimersPlaceholder());
+        placeholders.add(new LevelsPlaceholder());
     }
 
     public ScoreboardLayout getScoreboardLayout() {
@@ -411,11 +410,15 @@ public class ScoreboardManager {
             returnString = placeholder.parseString(returnString, uhcPlayer, bukkitPlayer, scoreboardType);
         }
 
-        if (returnString.length() > 32){
+        returnString = PapiUtil.setPlaceholders(bukkitPlayer, returnString);
+
+        /*if (returnString.length() > 32){
             Bukkit.getLogger().warning("[UhcCore] Scoreboard line is too long: '" + returnString + "'!");
             returnString = "";
-        }
 
+        }*/
+
+        // PlaceholderAPI Placeholders
         return returnString;
     }
 

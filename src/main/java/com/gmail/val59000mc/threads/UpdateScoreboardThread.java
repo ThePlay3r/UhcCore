@@ -97,10 +97,10 @@ public class UpdateScoreboardThread implements Runnable{
 
 					second += translatedLine.substring(split);
 
-					if (second.length() > 16){
+					/*if (second.length() > 16){
 						Bukkit.getLogger().warning("[UhcCore] Scoreboard line is too long: '" + translatedLine + "'!");
 						second = "";
-					}
+					}*/
 				}
 			}
 

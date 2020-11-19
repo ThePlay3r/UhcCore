@@ -1,9 +1,10 @@
-name: UhcCore
+name: UhcCoreFork
 main: com.gmail.val59000mc.UhcCore
 version: @version@
 description: Automates UHC games on a dedicated server
 author: val59000mc, Mezy
-softdepend: [WorldEdit,Vault,ProtocolLib]
+depend: [PLJRApi]
+softdepend: [WorldEdit,Vault,ProtocolLib,Parties]
 api-version: 1.13
 commands:
   uhccore:

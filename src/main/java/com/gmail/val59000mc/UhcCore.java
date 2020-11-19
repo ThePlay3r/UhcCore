@@ -1,10 +1,15 @@
 package com.gmail.val59000mc;
 
+import com.gmail.val59000mc.database.QueryManager;
 import com.gmail.val59000mc.game.GameManager;
+import com.gmail.val59000mc.levels.LevelManager;
 import com.gmail.val59000mc.scenarios.Scenario;
+import com.gmail.val59000mc.statistics.StatManager;
 import com.gmail.val59000mc.utils.FileUtils;
 import com.gmail.val59000mc.configuration.YamlFile;
 import com.gmail.val59000mc.utils.TimeUtils;
+import me.pljr.pljrapi.database.DataSource;
+import me.pljr.pljrapi.managers.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,8 +28,11 @@ public class UhcCore extends JavaPlugin{
 	private static UhcCore pl;
 	private static int version;
 	private boolean bStats;
+	private ConfigManager configManager;
 	private GameManager gameManager;
-	private Updater updater;
+	private QueryManager queryManager;
+	private StatManager statManager;
+	private LevelManager levelManager;
 
 	@Override
 	public void onEnable(){
@@ -36,10 +44,19 @@ public class UhcCore extends JavaPlugin{
 		gameManager = new GameManager();
 		Bukkit.getScheduler().runTaskLater(this, () -> gameManager.loadNewGame(), 1);
 
-		updater = new Updater(this);
+		setupDatabase();
+		statManager = new StatManager(this);
+		levelManager = new LevelManager(configManager);
 
 		// Delete files that are scheduled for deletion
 		FileUtils.removeScheduledDeletionFiles();
+	}
+
+	private void setupDatabase(){
+		saveDefaultConfig();
+		configManager = new ConfigManager(getConfig(), "config.yml", "§cUhcCore:");
+		queryManager = new QueryManager(DataSource.getFromConfig(configManager), this);
+		queryManager.setupTables();
 	}
 
 	// Load the Minecraft version.
@@ -150,6 +167,18 @@ public class UhcCore extends JavaPlugin{
 		}
 	}
 
+	public QueryManager getQueryManager(){
+		return this.queryManager;
+	}
+
+	public StatManager getStatManager(){
+		return this.statManager;
+	}
+
+	public LevelManager getLevelManager() {
+		return levelManager;
+	}
+
 	public static int getVersion() {
 		return version;
 	}
@@ -171,7 +200,6 @@ public class UhcCore extends JavaPlugin{
 	public void onDisable(){
 		gameManager.getScenarioManager().disableAllScenarios();
 		
-		updater.runAutoUpdate();
 		Bukkit.getLogger().info("[UhcCore] Plugin disabled");
 	}
 

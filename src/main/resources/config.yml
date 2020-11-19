@@ -1,3 +1,77 @@
+mysql:
+  enabled: false #-> Should we use this database instead of the one configured in PLJRApi config.yml?
+  host: "127.0.0.1"
+  port: "3306"
+  database: "db"
+  username: "root"
+  password: ""
+
+levels:
+  xp:
+    per-minute: 15
+    per-kill: 5
+    game-win: 100
+  progress-bar:
+    symbol: ■
+    unlocked-color: '§b'
+    locked-color: '§7'
+    format: '&8 [{progress}&8]'
+  levels:
+    '1':
+      name: '&7[{number}✩] '
+      rankup-cost: 1000
+    '2':
+      name: '&7[{number}✩] '
+      rankup-cost: 2000
+    '3':
+      name: '&7[{number}✩] '
+      rankup-cost: 3000
+    '4':
+      name: '&7[{number}✩] '
+      rankup-cost: 3500
+    5-10:
+      name: '&7[{number}✩] '
+      rankup-cost: 5000
+    15-25:
+      name: '&7[{number}✩] '
+      rankup-cost: 7000
+    40-70:
+      name: '&7[{number}✩] '
+      rankup-cost: 9000
+    80-99:
+      name: '&7[{number}✩] '
+      rankup-cost: 10000
+    100-150:
+      name: '§f[{number}✩] '
+      rankup-cost: 10000
+    151-199:
+      name: '§f[{number}✩] '
+      rankup-cost: 12000
+    200-250:
+      name: '§e[{number}✩] '
+      rankup-cost: 14000
+    251-299:
+      name: '§e[{number}✩] '
+      rankup-cost: 16000
+    300-350:
+      name: '§6[{number}✩] '
+      rankup-cost: 18000
+    351-399:
+      name: '§6[{number}✩] '
+      rankup-cost: 20000
+    400-450:
+      name: '§c[{number}✩] '
+      rankup-cost: 22000
+    451-499:
+      name: '§c[{number}✩] '
+      rankup-cost: 24000
+    '500':
+      name: '§b[{number}✩] '
+      rankup-cost: 25000
+    others:
+      name: '§b[{number}✩] '
+      rankup-cost: 25000
+
 #Choose the percentage threshold of ready teams at which the game should start
 minimal-ready-teams-percentage-to-start: 60
 

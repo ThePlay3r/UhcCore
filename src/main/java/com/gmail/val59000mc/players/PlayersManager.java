@@ -283,6 +283,29 @@ public class PlayersManager{
 		}
 	}
 
+	public void assignPartyTeam(UUID playerId, UUID assignToId){
+		Player player = Bukkit.getPlayer(playerId);
+		if (player == null) return;
+		Player assignTo = Bukkit.getPlayer(assignToId);
+		if (assignTo == null) return;
+
+		UhcPlayer uhcPlayer = getUhcPlayer(player);
+		UhcPlayer uhcAssignTo = getUhcPlayer(assignTo);
+
+		GameManager gm = GameManager.getGameManager();
+
+		if (gm.getScenarioManager().isActivated(Scenario.LOVEATFIRSTSIGHT)){
+			return;
+		}
+
+		UhcTeam team = uhcAssignTo.getTeam();
+		if (team.getMembers().size() >= gm.getConfiguration().getMaxPlayersPerTeam()) return;
+		try {
+			team.join(uhcPlayer);
+		} catch (UhcTeamException ignored) {
+		}
+	}
+
 	private void autoAssignPlayerToTeam(UhcPlayer uhcPlayer) {
 		GameManager gm = GameManager.getGameManager();
 
